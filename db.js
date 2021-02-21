@@ -23,7 +23,7 @@ console.log(config);
 
 const pool = new Pool(config);
 const getUsers = (req, res) => {
-  let getUsersSQL = "select * from users order by id asc limit 10";
+  let getUsersSQL = "select * from users order by id asc";
   pool.query(getUsersSQL, (error, results) => {
     if (error) {
       throw error;
@@ -109,6 +109,22 @@ const searchByLast = (req, res) => {
   })
 }
 
+const sortAsc = (req, res) => {
+  let ascending = 'select * from users order by first_name asc'
+  pool.query(ascending, (error, results) => {
+    if (error) throw error;
+    res.render('index', {users: results.rows})
+  })
+}
+
+const sortDesc = (req, res) => {
+  let descending = 'select * from users order by first_name desc'
+  pool.query(descending, (error, results) => {
+    if (error) throw error;
+    res.render('index', {users: results.rows})
+  })
+}
+
 module.exports = {
   getUsers,
   createUsers,
@@ -116,5 +132,7 @@ module.exports = {
   editUserPage,
   deleteUser,
   searchByFirst,
-  searchByLast
+  searchByLast,
+  sortAsc,
+  sortDesc
 };

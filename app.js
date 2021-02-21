@@ -25,6 +25,10 @@ app.post('/searchByFirst', db.searchByFirst)
 
 app.post('/searchByLast', db.searchByLast)
 
+app.post('/sortAsc', db.sortAsc)
+
+app.post('/sortDesc', db.sortDesc)
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
