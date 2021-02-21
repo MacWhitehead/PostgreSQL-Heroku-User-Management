@@ -23,7 +23,6 @@ console.log(config);
 
 const pool = new Pool(config);
 const getUsers = (req, res) => {
-  console.log(`db getUsers`);
   let getUsersSQL = "select * from users order by id asc limit 10";
   pool.query(getUsersSQL, (error, results) => {
     if (error) {
@@ -92,10 +91,30 @@ const deleteUser = (req, res) => {
   });
 };
 
+const searchByFirst = (req, res) => {
+  const searched = req.body.searchByFirst;
+  let searchFirstSQL = 'select * from users where first_name = $1'
+  pool.query(searchFirstSQL, [searched], (error, results) => {
+    if (error) throw error;
+    res.render("index", { users: results.rows });
+  })
+}
+
+const searchByLast = (req, res) => {
+  const searched = req.body.searchByLast;
+  let searchLastSQL = 'select * from users where last_name = $1'
+  pool.query(searchLastSQL, [searched], (error, results) => {
+    if (error) throw error;
+    res.render("index", { users: results.rows });
+  })
+}
+
 module.exports = {
   getUsers,
   createUsers,
   updateUser,
   editUserPage,
-  deleteUser
+  deleteUser,
+  searchByFirst,
+  searchByLast
 };

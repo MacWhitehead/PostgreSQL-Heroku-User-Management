@@ -8,6 +8,22 @@ html
                 label(for='submitNewUser') Click here to submit a new user:  
                 button(type='submit') Add User
         div 
+            form(action="/searchByFirst/", method='post')
+                label(for='searchByFirst') Search by first name: 
+                input(id="searchByFirst" name="searchByFirst")
+                button(type='submit') Submit    
+        div 
+            form(action="/searchByLast/", method='post')
+                label(for='searchByLast') Search by last name: 
+                input(id="searchByLast" name="searchByLast")
+                button(type='submit') Submit    
+        div 
+            form(action="/sortAsc/", method='post')
+                button(type='submit') Sort list ascending 
+        div   
+            form(action="/sortDesc/", method='post') 
+                button(type='submit') Sort list descending 
+        div 
             table(style ={border: '1px solid black'}) 
                 tr(style ={border: '1px solid black'})
                     th(style ={border: '1px solid black'}) ID

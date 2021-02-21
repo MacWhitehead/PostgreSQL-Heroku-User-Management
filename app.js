@@ -21,6 +21,10 @@ app.post('/userEdited/:id', db.updateUser);
 
 app.post('/delete/:id', db.deleteUser)
 
+app.post('/searchByFirst', db.searchByFirst)
+
+app.post('/searchByLast', db.searchByLast)
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
