@@ -81,9 +81,21 @@ const updateUser = (req, res) => {
   );
 };
 
+const deleteUser = (req, res) => {
+  const id = req.params.id;
+  let deleteUserSQL = "delete from users where id = $1";
+  pool.query(deleteUserSQL, [id], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    res.redirect("/");
+  });
+};
+
 module.exports = {
   getUsers,
   createUsers,
   updateUser,
   editUserPage,
+  deleteUser
 };

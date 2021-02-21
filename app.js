@@ -19,6 +19,8 @@ app.post('/createUser', db.createUsers);
 
 app.post('/userEdited/:id', db.updateUser);
 
+app.post('/delete/:id', db.deleteUser)
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
