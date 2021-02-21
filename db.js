@@ -52,22 +52,38 @@ const createUsers = (req, res) => {
   );
 };
 
-const updateUser = (req, res) => {
-  const id = req.body.id;
-  const name = req.body.name;
-  console.log(`db getUsers`);
-  let updateUserSQL = `update users set name = ${name} where id is ${id};`;
-  pool.query(updateUserSQL, [name, id], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    console.log(results);
-    res.status(200).json(results);
+const editUserPage = (req, res) => {
+  const id = req.params.id;
+  let pullUserInfo = "select * from users where id = $1";
+  pool.query(pullUserInfo, [id], (err, results) => {
+    if (err) throw err;
+    res.render("editUser", { user: results.rows[0] });
   });
+};
+
+const updateUser = (req, res) => {
+  const first_name = req.body.first_name;
+  const last_name = req.body.last_name;
+  const email = req.body.email;
+  const age = req.body.age;
+  const id = req.params.id;
+  let updateUserSQL =
+    "update users set first_name = $1, last_name = $2, email = $3, age = $4 where id = $5";
+  pool.query(
+    updateUserSQL,
+    [first_name, last_name, email, age, id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.redirect("/");
+    }
+  );
 };
 
 module.exports = {
   getUsers,
   createUsers,
   updateUser,
+  editUserPage,
 };

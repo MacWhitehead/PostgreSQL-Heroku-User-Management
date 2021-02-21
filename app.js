@@ -13,7 +13,11 @@ app.get('/addUser', (req, res) => {
     res.render('addUser')
 })
 
-app.post('/createUser', db.createUsers)
+app.get("/editUser/:id", db.editUserPage);
+
+app.post('/createUser', db.createUsers);
+
+app.post('/userEdited/:id', db.updateUser);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
