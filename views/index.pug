@@ -6,21 +6,26 @@ html
         div 
             table(style ={border: '1px solid black'}) 
                 tr(style ={border: '1px solid black'})
-                    th(style ={border: '1px solid black'}) Username
+                    th(style ={border: '1px solid black'}) ID
                     th(style ={border: '1px solid black'}) First name
                     th(style ={border: '1px solid black'}) Last name 
                     th(style ={border: '1px solid black'}) Email 
+                    th(style ={border: '1px solid black'}) Gender
+                    th(style ={border: '1px solid black'}) Gender
+                    th(style ={border: '1px solid black'}) Title
                     th(style ={border: '1px solid black'}) Age
-                each val, index in users
+                each val in users
                     tr
-                        td= val.username 
-                        td= val.firstname
-                        td= val.lastname
+                        td= val.id 
+                        td= val.first_name
+                        td= val.last_name
                         td= val.email
-                        td= val.age
+                        td= val.gender
+                        td= val.title 
+                        td= val.age 
                         td 
-                            a(href='/editUser/' + index)
+                            a(href='/editUser/' + val.id)
                                 button Edit
                         td                             
-                            form(action="/delete/" + index, method='post')
+                            form(action="/delete/" + val.id, method='post')
                                 button(type='submit') Delete

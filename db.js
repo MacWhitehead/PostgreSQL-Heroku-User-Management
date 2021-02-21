@@ -1,6 +1,4 @@
-//API to database file
 const Pool = require("pg").Pool;
-//pools allow you to handle more connections at one time.
 const url = require("url");
 const DBConnectionString = process.env.DATABASE_URL;
 
@@ -18,33 +16,35 @@ const config = {
   host: params.hostname,
   port: params.port,
   database: params.pathname.split("/")[1],
-  ssl: SSL,
+  ssl: true,
 };
 console.log(config);
 
 const pool = new Pool(config);
 const getUsers = (req, res) => {
   console.log(`db getUsers`);
-  let getUsersSQL = "select * from users order by id asc";
+  let getUsersSQL = "select * from users order by id asc limit 10";
   pool.query(getUsersSQL, (error, results) => {
     if (error) {
       throw error;
     }
-    res.render('index', {users: results})
+    res.render('index', results)
   });
 };
 
 const createUsers = (req, res) => {
+    const first_name = req.body.first_name
+    const last_name = req.body.last_name
     const email = req.body.email;
-    const name = req.body.name;
-    console.log(`db getUsers`);
-    let addUserSQL = `insert into users (email, name) values (${email}, ${name});`
-    pool.query(addUserSQL,[email, name], (error, results) => {
+    const gender = req.body.gender;
+    const title = req.body.title 
+    const age = req.body.age
+    let addUserSQL = `insert into users (first_name, last_name, email, gender, title, age) values (${first_name}, ${last_name}, ${email}, ${gender}, ${title}, ${age});`
+    pool.query(addUserSQL,[first_name, last_name, email, gender, title, age], (error, results) => {
       if (error) {
         throw error;
       }
-      console.log(results)
-      res.status(200).json(results);
+      res.render('index', results)
     });
   };
 
