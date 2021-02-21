@@ -4,15 +4,16 @@ html
     body
         h2 User Data 
         div 
+            form(action="/addUser/", method='get')
+                label(for='submitNewUser') Click here to submit a new user:  
+                button(type='submit') Add User
+        div 
             table(style ={border: '1px solid black'}) 
                 tr(style ={border: '1px solid black'})
                     th(style ={border: '1px solid black'}) ID
                     th(style ={border: '1px solid black'}) First name
                     th(style ={border: '1px solid black'}) Last name 
                     th(style ={border: '1px solid black'}) Email 
-                    th(style ={border: '1px solid black'}) Gender
-                    th(style ={border: '1px solid black'}) Gender
-                    th(style ={border: '1px solid black'}) Title
                     th(style ={border: '1px solid black'}) Age
                 each val in users
                     tr
@@ -20,8 +21,6 @@ html
                         td= val.first_name
                         td= val.last_name
                         td= val.email
-                        td= val.gender
-                        td= val.title 
                         td= val.age 
                         td 
                             a(href='/editUser/' + val.id)

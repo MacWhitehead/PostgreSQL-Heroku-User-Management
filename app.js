@@ -9,6 +9,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get('/', db.getUsers)
 
+app.get('/addUser', (req, res) => {
+    res.render('addUser')
+})
+
 app.post('/createUser', db.createUsers)
 
 app.listen(port, () => {
