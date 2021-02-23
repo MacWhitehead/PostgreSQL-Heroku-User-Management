@@ -1,0 +1,46 @@
+html 
+    head
+    title View User Data
+    body
+        h2 User Data 
+        div 
+            form(action="/addUser/", method='get')
+                label(for='submitNewUser') Click here to submit a new user:  
+                button(type='submit') Add User
+        div 
+            form(action="/searchByFirst/", method='post')
+                label(for='searchByFirst') Search by first name: 
+                input(id="searchByFirst" name="searchByFirst")
+                button(type='submit') Submit    
+        div 
+            form(action="/searchByLast/", method='post')
+                label(for='searchByLast') Search by last name: 
+                input(id="searchByLast" name="searchByLast")
+                button(type='submit') Submit    
+        div 
+            form(action="/sortAsc/", method='post')
+                button(type='submit') Sort list ascending 
+        div   
+            form(action="/sortDesc/", method='post') 
+                button(type='submit') Sort list descending 
+        div 
+            table(style ={border: '1px solid black'}) 
+                tr(style ={border: '1px solid black'})
+                    th(style ={border: '1px solid black'}) ID
+                    th(style ={border: '1px solid black'}) First name
+                    th(style ={border: '1px solid black'}) Last name 
+                    th(style ={border: '1px solid black'}) Email 
+                    th(style ={border: '1px solid black'}) Age
+                each val in users
+                    tr
+                        td= val.id 
+                        td= val.first_name
+                        td= val.last_name
+                        td= val.email
+                        td= val.age 
+                        td 
+                            a(href='/editUser/' + val.id)
+                                button Edit
+                        td                             
+                            form(action="/delete/" + val.id, method='post')
+                                button(type='submit') Delete
